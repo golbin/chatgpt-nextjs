@@ -10,6 +10,19 @@ const initialMessages = [
     role: "assistant",
     content: "안녕하세요. 궁금한 내용이 있으신가요?",
   },
+  // 아래는 메시지 구조 예시입니다.
+  // {
+  //   role: "user",
+  //   content: "{사용자 입력}",
+  // },
+  // { // 답변 생성 대기 중 상태
+  //   role: "assistant",
+  //   status: "thinking",
+  // },
+  // {
+  //   role: "assistant",
+  //   content: "{답변 내용}",
+  // }
 ];
 
 export default function IndexPage() {
