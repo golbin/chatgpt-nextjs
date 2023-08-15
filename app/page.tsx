@@ -5,7 +5,13 @@ import ChatArea from "@/components/chatarea";
 
 import { useEffect, useRef, useState } from "react";
 
-const initialMessages = [
+interface Message {
+  role: "user" | "assistant";
+  content?: string;
+  status?: "thinking";
+}
+
+const initialMessages: Message[] = [
   {
     role: "assistant",
     content: "안녕하세요. 궁금한 내용이 있으신가요?",
@@ -41,11 +47,11 @@ export default function IndexPage() {
       {
         role: "user",
         content: message,
-      },
+      } as Message,
       {
         role: "assistant",
         status: "thinking",
-      },
+      } as Message,
     ];
 
     setMessages(updatedMessages);
@@ -94,12 +100,12 @@ export default function IndexPage() {
     });
 
     const data = response.body;
-    const reader = data.getReader();
+    const reader = data?.getReader();
     const decoder = new TextDecoder();
 
     let done = false;
     let lastMessage = "";
-    while (!done) {
+    while (!done && reader) {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
